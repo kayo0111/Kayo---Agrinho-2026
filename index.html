@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agro Forte • Futuro Sustentável</title>
+    <style>
+        :root {
+            --green: #2E7D32;
+            --dark-green: #1B5E20;
+            --brown: #8D5524;
+            --light-brown: #A67C52;
+            --beige: #F5EDE1;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f5f0;
+        }
+        
+        header {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://picsum.photos/id/1015/1920/1080') center/cover no-repeat;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(46, 125, 50, 0.95);
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #ffeb3b;
+        }
+        
+        .hero-content {
+            max-width: 900px;
+            padding: 2rem;
+            z-index: 2;
+        }
+        
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.6);
+        }
+        
+        .hero-content p {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--brown);
+            color: white;
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+        
+        .btn:hover {
+            background: #6d3f1a;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        section {
+            padding: 100px 8%;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 3rem;
+            color: var(--dark-green);
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--brown);
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.4s;
+        }
+        
+        .card:hover {
+            transform: translateY(-15px);
+        }
+        
+        .card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .card-content {
+            padding: 1.8rem;
+        }
+        
+        .card h3 {
+            color: var(--dark-green);
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+        }
+        
+        .stats {
+            background: linear-gradient(135deg, var(--green), var(--dark-green));
+            color: white;
+            padding: 80px 8%;
+            text-align: center;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+        }
+        
+        .stat-item h2 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .gallery img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 12px;
+            transition: all 0.4s;
+        }
+        
+        .gallery img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        footer {
+            background: var(--dark-green);
+            color: white;
+            padding: 4rem 8% 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+        
+        .slide-container {
+            position: relative;
+            max-width: 100%;
+            margin: 3rem auto;
+            overflow: hidden;
+            border-radius: 16px;
+        }
+        
+        .slides {
+            display: flex;
+            transition: transform 0.6s ease;
+        }
+        
+        .slide {
+            min-width: 100%;
+            padding: 3rem;
+            background: linear-gradient(135deg, #f5f0e6, #e8d9c2);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="#" class="logo">
+            🌱 Agro Forte
+        </a>
+        <ul class="nav-links">
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="#familiar">Agricultura Familiar</a></li>
+            <li><a href="#agronegocio">Agronegócio</a></li>
+            <li><a href="#sustentabilidade">Sustentabilidade</a></li>
+            <li><a href="#galeria">Galeria</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero -->
+    <header>
+        <div class="hero-content">
+            <h1>Agro Forte</h1>
+            <p>Futuro Sustentável: Equilíbrio entre Produção e Meio Ambiente</p>
+            <a href="#sobre" class="btn">Conheça Nossa Missão</a>
+        </div>
+    </header>
+
+    <!-- Sobre -->
+    <section id="sobre">
+        <h2 class="section-title">O Futuro que Plantamos Hoje</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="https://picsum.photos/id/1015/600/400" alt="Campo verde">
+                <div class="card-content">
+                    <h3>Produção Responsável</h3>
+                    <p>O agronegócio brasileiro é um dos mais eficientes do mundo. Com tecnologia e inovação, produzimos alimentos para milhões de pessoas enquanto preservamos recursos naturais.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://picsum.photos/id/133/600/400" alt="Agricultor familiar">
+                <div class="card-content">
+                    <h3>Raízes Fortes</h3>
+                    <p>A agricultura familiar é responsável por grande parte dos alimentos que chegam à nossa mesa. É tradição, cultura e sustento de milhares de famílias brasileiras.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://picsum.photos/id/201/600/400" alt="Sustentabilidade">
+                <div class="card-content">
+                    <h3>Equilíbrio Natural</h3>
+                    <p>Práticas sustentáveis como rotação de culturas, plantio direto e recuperação de áreas degradadas garantem que o solo permaneça produtivo por gerações.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Agricultura Familiar -->
+    <section id="familiar" style="background: #f5f0e6;">
+        <h2 class="section-title">Agricultura Familiar</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="https://picsum.photos/id/251/600/400" alt="Família no campo">
+                <div class="card-content">
+                    <h3>Alimento com Alma</h3>
+                    <p>Responsável por cerca de 70% dos alimentos consumidos no Brasil, a agricultura familiar conecta o campo à mesa com respeito à terra e às tradições.</p>
+                    <ul style="margin-top: 1rem; padding-left: 1.2rem;">
+                        <li>🌾 Diversidade de cultivos</li>
+                        <li>👨‍👩‍👧‍👦 Geração de emprego rural</li>
+                        <li>💚 Preservação de sementes crioulas</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <h3>Impacto Social</h3>
+                    <p>A agricultura familiar fortalece comunidades, promove segurança alimentar e mantém viva a cultura do interior brasileiro.</p>
+                    <div class="slide-container" style="margin-top: 1.5rem;">
+                        <div class="slides" id="familiar-slides">
+                            <div class="slide">
+                                <h4>"A terra não é só para plantar, é para viver com dignidade."</h4>
+                                <p>— Dona Maria, agricultora familiar, Paraná</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Agronegócio -->
+    <section id="agronegocio">
+        <h2 class="section-title">Agronegócio Brasileiro</h2>
+        <div class="stats">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h2>23%</h2>
+                    <p>do PIB nacional</p>
+                </div>
+                <div class="stat-item">
+                    <h2>1,2 tri</h2>
+                    <p>em exportações (2025)</p>
+                </div>
+                <div class="stat-item">
+                    <h2>19 mi</h2>
+                    <p>de empregos</p>
+                </div>
+                <div class="stat-item">
+                    <h2>🇧🇷</h2>
+                    <p>Líder mundial em diversas commodities</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid" style="margin-top: 4rem;">
+            <div class="card">
+                <img src="https://picsum.photos/id/866/600/400" alt="Máquinas agrícolas">
+                <div class="card-content">
+                    <h3>Tecnologia no Campo</h3>
+                    <p>Precisão agrícola, drones, inteligência artificial e biotecnologia aumentam a produtividade com menor impacto ambiental.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sustentabilidade -->
+    <section id="sustentabilidade" style="background: var(--dark-green); color: white;">
+        <h2 class="section-title" style="color: white;">Sustentabilidade no Agro</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="https://picsum.photos/id/1016/600/400" alt="Floresta">
+                <div class="card-content">
+                    <h3>Preservação</h3>
+                    <p>Mais de 60% do território brasileiro ainda é coberto por vegetação nativa. O Agro tem papel fundamental na manutenção desse patrimônio.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://picsum.photos/id/1077/600/400" alt="Solo saudável">
+                <div class="card-content">
+                    <h3>Recuperação de Solo</h3>
+                    <p>Técnicas como plantio direto, integração lavoura-pecuária-floresta (ILPF) e uso de bioinsumos regeneram o solo e capturam carbono.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galeria -->
+    <section id="galeria">
+        <h2 class="section-title">Imagens do Campo Brasileiro</h2>
+        <div class="gallery">
+            <img src="https://picsum.photos/id/1015/600/400" alt="Plantação de soja ao pôr do sol">
+            <img src="https://picsum.photos/id/133/600/400" alt="Agricultor colhendo">
+            <img src="https://picsum.photos/id/201/600/400" alt="Área de preservação">
+            <img src="https://picsum.photos/id/251/600/400" alt="Família rural">
+            <img src="https://picsum.photos/id/866/600/400" alt="Máquinas no campo">
+            <img src="https://picsum.photos/id/1077/600/400" alt="Cafezal">
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <h3>🌱 Agro Forte</h3>
+                <p>Construindo um futuro onde produção e meio ambiente caminham juntos.</p>
+            </div>
+            <div>
+                <h4>Links Rápidos</h4>
+                <ul style="list-style: none; margin-top: 1rem;">
+                    <li><a href="#" style="color: white; text-decoration: none;">Agricultura Familiar</a></li>
+                    <li><a href="#" style="color: white; text-decoration: none;">Inovações Tecnológicas</a></li>
+                    <li><a href="#" style="color: white; text-decoration: none;">Práticas Sustentáveis</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Contato</h4>
+                <p>📍 Curitiba, Paraná</p>
+                <p>📧 contato@agroforte.com.br</p>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 3rem; opacity: 0.7;">
+            <p>&copy; 2026 Agro Forte - Futuro Sustentável. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                if (this.getAttribute('href') !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(46, 125, 50, 0.98)';
+                navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+            } else {
+                navbar.style.background = 'rgba(46, 125, 50, 0.95)';
+                navbar.style.boxShadow = 'none';
+            }
+        });
+
+        // Simple image carousel for demonstration
+        let currentSlide = 0;
+        const slides = document.getElementById('familiar-slides');
+        
+        // Array of quotes
+        const quotes = [
+            {
+                text: "A terra não é só para plantar, é para viver com dignidade.",
+                author: "— Dona Maria, agricultora familiar, Paraná"
+            },
+            {
+                text: "Cada semente plantada com respeito gera frutos para o futuro.",
+                author: "— João, produtor de café, Minas Gerais"
+            },
+            {
+                text: "O agro sustentável não é uma opção, é a única forma de continuar existindo.",
+                author: "— Eng. Agrônoma Luana Silva"
+            }
+        ];
+        
+        function changeQuote() {
+            currentSlide = (currentSlide + 1) % quotes.length;
+            slides.innerHTML = `
+                <div class="slide">
+                    <h4>"${quotes[currentSlide].text}"</h4>
+                    <p>${quotes[currentSlide].author}</p>
+                </div>
+            `;
+        }
+        
+        // Change quote every 6 seconds
+        setInterval(changeQuote, 6000);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === '/' && document.activeElement.tagName !== "INPUT" && document.activeElement.tagName !== "TEXTAREA") {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+
+        console.log('%c✅ Site Agro Forte carregado com sucesso!', 'color: #2E7D32; font-size: 16px; font-weight: bold;');
+    </script>
+</body>
+</html>
