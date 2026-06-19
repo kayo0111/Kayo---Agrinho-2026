@@ -1,0 +1,218 @@
+// ====================== SCRIPT.JS - AGRO FORTE ======================
+
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // Smooth Scroll para links internos
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href !== '#') {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    const navbarHeight = 80;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.scrollY - navbarHeight;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
+
+    // Navbar Scroll Effect
+    const navbar = document.querySelector('.navbar');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 80) {
+            navbar.style.background = 'rgba(27, 94, 32, 0.98)';
+            navbar.style.boxShadow = '0 5px 25px rgba(0, 0, 0, 0.15)';
+        } else {
+            navbar.style.background = 'rgba(46, 125, 50, 0.95)';
+            navbar.style.boxShadow = 'none';
+        }
+    });
+
+    // Mobile Menu (Hamburger)
+    function createMobileMenu() {
+        const navLinks = document.querySelector('.nav-links');
+        
+        const hamburger = document.createElement('div');
+        hamburger.classList.add('hamburger');
+        hamburger.innerHTML = '☰';
+        hamburger.style.cssText = `
+            font-size: 1.8rem;
+            color: white;
+            cursor: pointer;
+            display: none;
+        `;
+
+        navbar.appendChild(hamburger);
+
+        // Toggle menu
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.innerHTML = navLinks.classList.contains('active') ? '✕' : '☰';
+        });
+
+        // Responsivo
+        function checkMobile() {
+            if (window.innerWidth <= 768) {
+                hamburger.style.display = 'block';
+                navLinks.style.flexDirection = 'column';
+                navLinks.style.position = 'absolute';
+                navLinks.style.top = '100%';
+                navLinks.style.left = '0';
+                navLinks.style.width = '100%';
+                navLinks.style.background = 'rgba(27, 94, 32, 0.98)';
+                navLinks.style.padding = '1rem 0';
+                navLinks.style.display = 'none';
+            } else {
+                hamburger.style.display = 'none';
+                navLinks.style.display = 'flex';
+                navLinks.style.flexDirection = 'row';
+            }
+        }
+
+        window.addEventListener('resize', checkMobile);
+        checkMobile();
+    }
+
+    createMobileMenu();
+
+    // Quotes Rotator com Fade
+    const quotes = [
+        { 
+            text: "A terra não é só para plantar, é para viver com dignidade.", 
+            author: "— Dona Maria, Agricultora Familiar - PR" 
+        },
+        { 
+            text: "Cada semente plantada com respeito gera frutos para o futuro.", 
+            author: "— João Silva, Produtor de Café - MG" 
+        },
+        { 
+            text: "O agro sustentável não é uma opção, é a única forma de continuar existindo.", 
+            author: "— Eng. Luana Mendes" 
+        },
+        { 
+            text: "Preservar hoje é garantir comida amanhã.", 
+            author: "— Família rural de Santa Catarina" 
+        }
+    ];
+
+    let currentQuote = 0;
+    const quoteElement = document.getElementById('quote');
+
+    function showQuote() {
+        if (!quoteElement) return;
+        
+        quoteElement.style.opacity = '0';
+        
+        setTimeout(() => {
+            quoteElement.innerHTML = `
+                <p>"${quotes[currentQuote].text}"</p>
+                <small>${quotes[currentQuote].author}</small>
+            `;
+            quoteElement.style.opacity = '1';
+        }, 400);
+
+        currentQuote = (currentQuote + 1) % quotes.length;
+    }
+
+    // Inicia o rotator
+    if (quoteElement) {
+        showQuote();
+        setInterval(showQuote, 7000);
+    }
+
+    // Animação dos números nas estatísticas
+    function animateCounters() {
+        const stats = document.querySelectorAll('.stat-item h2');
+        
+        stats.forEach(stat => {
+            const target = stat.textContent;
+            let count = 0;
+            
+            if (target.includes('%') || target.includes('mi') || target.includes('tri')) {
+                stat.style.opacity = '1';
+                return;
+            }
+            
+            const increment = Math.ceil(parseFloat(target) / 50);
+            const timer = setInterval(() => {
+                count += increment;
+                if (count >= parseFloat(target)) {
+                    count = parseFloat(target);
+                    clearInterval(timer);
+                }
+                stat.textContent = count + (target.includes('mi') ? ' mi' : '');
+            }, 40);
+        });
+    }
+
+    // Ativa animação quando a seção de stats entra na tela
+    const statsSection = document.querySelector('.stats');
+    if (statsSection) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    observer.disconnect();
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        observer.observe(statsSection);
+    }
+
+    // Back to Top Button
+    function createBackToTop() {
+        const btn = document.createElement('button');
+        btn.innerHTML = '↑';
+        btn.classList.add('back-to-top');
+        btn.style.cssText = `
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--brown);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.6rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 999;
+            transition: all 0.3s;
+        `;
+        
+        document.body.appendChild(btn);
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 600) {
+                btn.style.display = 'block';
+            } else {
+                btn.style.display = 'none';
+            }
+        });
+
+        btn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    createBackToTop();
+
+    // Gallery Hover Effect + Lazy Loading
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+        img.loading = "lazy";
+    });
+
+    console.log('%c🌱 Agro Forte - JavaScript carregado com sucesso!', 
+        'color: #2E7D32; font-size: 16px; font-weight: bold;');
+});
